@@ -1,3 +1,5 @@
+public/library/*
+
 # Logs
 logs
 *.log
