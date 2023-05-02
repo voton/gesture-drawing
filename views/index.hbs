@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <title>Gesture Drawing</title>
+
+        <link rel="stylesheet" href="../public/css/stylesheet/main.css">
+        
+        <script src="/public/jquery.js"></script>
+    </head>
+    <body>
+        <div id="container">
+            <img alt="Image not found" id="image">
+            <div id="control">
+                <div id="skip" onclick="skip()">Skip</div>
+                <div id="timer">
+                    <div id="timer_bg"></div>
+                    <div id="timer_pb"></div>
+                </div>
+            </div>
+        </div>  
+    </body>
+</html>
+
+<script>
+    function init(){
+        imageList = {{{ imageList }}}
+
+        time = 180
+        pause = false
+
+        RollImage()
+    }
+
+    function RollImage(){
+        const image = imageList[Math.floor(Math.random() * imageList.length)]
+        $("#image").attr('src', `./public/lib/${ image }`)
+
+        time_current = 0
+        clock()
+    }
+
+    async function clock(){
+        const progress_bar = $('#timer_pb')
+        while(true){
+            if(time_current >= time) break
+
+            let width = (time_current / time) * 100
+            progress_bar.css('width', `${ width }%`)
+
+            await timer(1)
+            if(pause == false) time_current += 1
+        }
+
+        RollImage()
+    }
+
+    function skip(){
+        location.reload()
+    }
+
+    function timer(time){
+        return new Promise(resolve => setTimeout(resolve, time * 1000))
+    }
+
+    window.onload = init()
+</script>

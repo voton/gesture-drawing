@@ -1,0 +1,56 @@
+@import url("https://fonts.googleapis.com/css2?family=Bakbak+One&family=Quicksand&family=Sofia+Sans+Extra+Condensed&display=swap");
+body {
+  color: white;
+  font-size: 24px;
+  font-family: "Quicksand", sans-serif;
+  margin: 0 !important;
+  background-color: #0d0e0f;
+}
+
+#image {
+  height: 95vh;
+  display: block;
+  text-align: center;
+}
+
+#control {
+  width: 100%;
+  height: 5vh;
+  overflow: auto;
+  background-color: #1d1e20;
+}
+
+#image {
+  margin: 0 auto;
+}
+
+#timer {
+  width: 60%;
+  height: 20px;
+  margin: 0 auto;
+}
+
+#timer > * {
+  height: 100%;
+  border-radius: 10px;
+  margin-top: 15px;
+}
+
+#timer_bg {
+  background: #2d2f31;
+  width: 100%;
+}
+
+#timer_pb {
+  transition: 1s;
+  width: 0;
+  margin-top: -20px;
+  background-color: #f8ae0e;
+}
+
+#skip {
+  height: 5vh;
+  line-height: 5vh;
+  padding: 0 20px;
+  float: right;
+}
