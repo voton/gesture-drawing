@@ -26,45 +26,40 @@
 </html>
 
 <script>
-    function init(){
-        imageList = {{{ imageList }}}
+    let time = [0, 180]
+    let pause = false
 
-        time = 180
-        pause = false
+    const image_set = {{{ image_set }}}
+    const board_list = {{{ board_list }}}
 
-        RollImage()
+    function roll_image(){
+        const image = image_set[Math.floor(Math.random() * image_set.length)]
+        $("#image").attr('src', `/public/library/${image[0]}/${image[1]}`)
+        timer()
     }
 
-    function RollImage(){
-        const image = imageList[Math.floor(Math.random() * imageList.length)]
-        $("#image").attr('src', `./public/lib/${ image }`)
-
-        time_current = 0
-        clock()
-    }
-
-    async function clock(){
-        const progress_bar = $('#timer_pb')
+    async function timer(){
         while(true){
-            if(time_current >= time) break
+            if(time[0] >= time[1]) break
+            if(pause == false) time[0] += 1
 
-            let width = (time_current / time) * 100
-            progress_bar.css('width', `${ width }%`)
+            const width = (time[0] / time[1]) * 100
+            $("#timer_pb").css('width', `${width}%`)
 
-            await timer(1)
-            if(pause == false) time_current += 1
+            await wait()
         }
 
-        RollImage()
+        skip()
+    }
+
+    function wait(){
+        return new Promise(resolve => setTimeout(resolve, 1000))
     }
 
     function skip(){
         location.reload()
     }
 
-    function timer(time){
-        return new Promise(resolve => setTimeout(resolve, time * 1000))
-    }
+    window.onload = roll_image()
 
-    window.onload = init()
 </script>
