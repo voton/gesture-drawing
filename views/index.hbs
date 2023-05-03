@@ -12,21 +12,21 @@
         <script src="/public/jquery.js"></script>
     </head>
     <body>
-        <div id="container">
-            <img alt="Image not found" id="image">
-            <div id="control">
-                <div id="skip" onclick="skip()">Skip</div>
-                <div id="timer">
-                    <div id="timer_bg"></div>
-                    <div id="timer_pb"></div>
+        <div id="content">
+            <img alt="Image not Found" id="image">
+            <div id="menu">
+                <div class="button" id="pause" onclick="PlayPause()">Pause</div>
+                <div id="progressbar">
+                    <div id="bar"></div>
                 </div>
+                <div class="button" onclick="Skip()">Skip</div>
             </div>
-        </div>  
+        </div>
     </body>
 </html>
 
 <script>
-    let time = [0, 180]
+    let time = [0, 120]
     let pause = false
 
     const image_set = {{{ image_set }}}
@@ -39,24 +39,38 @@
     }
 
     async function timer(){
+        const div = $("#progressbar > #bar")
+        div.css("animation", `animation ${time[1]}s infinite`)
         while(true){
             if(time[0] >= time[1]) break
-            if(pause == false) time[0] += 1
-
-            const width = (time[0] / time[1]) * 100
-            $("#timer_pb").css('width', `${width}%`)
+            if(pause == false){
+                time[0] += 1
+                div.css("animation-play-state", "running")
+            }else{
+                div.css("animation-play-state", "paused")
+            }
 
             await wait()
         }
-
-        skip()
+        Skip()
     }
 
     function wait(){
         return new Promise(resolve => setTimeout(resolve, 1000))
     }
 
-    function skip(){
+    function PlayPause(){
+        const div = $("#pause")
+        if(pause == true){
+            pause = false
+            div.text("Pause")
+        }
+        else{
+            pause = true
+            div.text("Play")
+        }
+    }
+    function Skip(){
         location.reload()
     }
 

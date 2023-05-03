@@ -4,56 +4,49 @@ $font_1: 'Bakbak One', cursive;
 $font_2: 'Quicksand', sans-serif;
 $font_3: 'Sofia Sans Extra Condensed', sans-serif;
 
-$color_1: #0d0e0f;
-$color_2: #1d1e20;
-$color_3: #2d2f31;
-$color_accent: #f8ae0e;
-
 body{
     color: white;
-    font-size: 24px;
-    font-family: $font_2;
+    font-size: 20px;
     margin: 0 !important;
-    background-color: $color_1;
+    font-family: $font_1;
+    background-color: #121213;
 }
-
 #image{
-    height: 95vh;
     display: block;
+    margin: 0 auto;
+    height: calc(100vh - 50px);
+}
+#menu{
+    width: 100%;
+    height: 50px;
+    overflow: auto;
+    background-color: #202022;
+}
+#progressbar{
+    float: left;
+    width: 800px;
+    height: 40px;
+    margin: 5px calc((100% / 2) - 100px - 400px);
+    border-radius: 5px;
+    background-color: #121213;
+}
+#progressbar > #bar{
+    height: 40px;
+    margin: 0 auto;
+    border-radius: 5px;
+    background-color: #ffad15;
+    animation-timing-function: linear;
+}
+.button{
+    float: left;
+    width: 100px;
+    height: 50px;
+    cursor: pointer;
+    line-height: 50px;
     text-align: center;
 }
-#control{
-    width: 100%;
-    height: 5vh;
-    overflow: auto;
-    background-color: $color_2;
-}
-#image{
-    margin: 0 auto;
-}
-#timer{
-    width: 60%;
-    height: 20px;
-    margin: 0 auto;
-}
-#timer > *{
-    height: 100%;
-    border-radius: 10px;
-    margin-top: 15px;
-}
-#timer_bg{
-    background: $color_3;
-    width: 100%;
-}
-#timer_pb{
-    transition: 1s;
-    width: 0;
-    margin-top: -20px;
-    background-color: $color_accent;
-}
-#skip{
-    height: 5vh;
-    line-height: 5vh;
-    padding: 0 20px;
-    float: right;
+
+@keyframes animation {
+  from {width: 0px;}
+  to {width: 100%;}
 }
