@@ -41,10 +41,22 @@ const load_board = (data) => {
 
 app.get('/', function(req, res){
     const board_list = load_boards()
+    
+    // Query
     const boardID = req.query.boardID
+    const boardName = req.query.board
 
-    let board = board_list[boardID]
-    if(board == undefined) board = board_list
+    if(boardName == undefined){    
+        board = board_list[boardID]
+        if(board == undefined) board = board_list
+    }
+    else{
+        board = boardName.replace(' ', '')
+        if(board.includes(',')){
+            board = board.split(',')
+        }
+    }
+    console.log(`Current board: ${board}`)
 
     const image_set = load_board(board)
     res.render('index', {
