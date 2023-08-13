@@ -1,0 +1,39 @@
+#image{
+    display: block;
+    margin: 0 auto;
+    height: calc(100vh - 50px);
+}
+#menu{
+    width: 100%;
+    height: 50px;
+    overflow: auto;
+    background-color: #202022;
+}
+#progressbar{
+    float: left;
+    width: 800px;
+    height: 40px;
+    margin: 5px calc((100% / 2) - 100px - 400px);
+    border-radius: 5px;
+    background-color: #121213;
+}
+#progressbar > #bar{
+    height: 40px;
+    margin: 0 auto;
+    border-radius: 5px;
+    background-color: #ffad15;
+    animation-timing-function: ease;
+}
+.button{
+    float: left;
+    width: 100px;
+    height: 50px;
+    cursor: pointer;
+    line-height: 50px;
+    text-align: center;
+}
+
+@keyframes animation {
+  from {width: 0px;}
+  to {width: 100%;}
+}

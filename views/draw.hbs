@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <title>Practice - Gesture Drawing</title>
+
+        <link rel="stylesheet" href="/public/css/stylesheet/main.css">
+
+        <script src="/public/jquery.js"></script>
+    </head>
+    <body>
+        <img alt="Image not Found" id="image">
+        <div id="menu">
+            <div class="button" id="pause" onclick="PlayPause()">Pause</div>
+            <div id="progressbar">
+                <div id="bar"></div>
+            </div>
+            <div class="button" onclick="Skip()">Skip</div>
+        </div>
+    </body>
+</html>
+
+<script>
+    let time = [0, 120]
+    let pause = false
+
+    const images = {{{ images }}}
+    const board = "{{{ board }}}"
+
+    function roll_image(){
+        const image = images[Math.floor(Math.random() * images.length)]
+        $("#image").attr('src', `/public/library/${board}/${image}`)
+        timer()
+    }
+
+    async function timer(){
+        const div = $("#progressbar > #bar")
+        div.css("animation", `animation ${time[1]}s infinite`)
+        while(true){
+            if(time[0] >= time[1]) break
+            if(pause == false){
+                time[0] += 1
+                div.css("animation-play-state", "running")
+            }else{
+                div.css("animation-play-state", "paused")
+            }
+
+            await wait()
+        }
+        Skip()
+    }
+
+    function wait(){
+        return new Promise(resolve => setTimeout(resolve, 1000))
+    }
+
+    function PlayPause(){
+        const div = $("#pause")
+        if(pause == true){
+            pause = false
+            div.text("Pause")
+        }
+        else{
+            pause = true
+            div.text("Play")
+        }
+    }
+    function Skip(){
+        location.reload()
+    }
+
+    window.onload = roll_image()
+</script>

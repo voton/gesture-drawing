@@ -1,10 +1,37 @@
 @import url("https://fonts.googleapis.com/css2?family=Bakbak+One&family=Quicksand&family=Sofia+Sans+Extra+Condensed&display=swap");
-body {
-  color: white;
-  font-size: 20px;
-  margin: 0 !important;
-  font-family: "Bakbak One", cursive;
-  background-color: #121213;
+#content {
+  width: 100%;
+  margin: 0 auto;
+  overflow: hidden;
+  max-width: 1600px;
+  min-height: 100vh;
+  padding-bottom: 10px;
+  background-color: #1c1d20;
+}
+
+.block {
+  float: left;
+  display: block;
+  aspect-ratio: 2;
+  margin-top: 10px;
+  margin-left: 10px;
+  position: relative;
+  border-radius: 10px;
+  background-size: 120%;
+  background-position: center;
+  width: calc(33.3333333333% - 13.3333333333px);
+}
+
+.name {
+  top: 80%;
+  width: 100%;
+  font-size: 32px;
+  line-height: 40px;
+  position: absolute;
+  text-align: center;
+  background-color: rgba(19, 16, 20, 0.5411764706);
+  font-family: "Sofia Sans Extra Condensed", sans-serif;
+  transform: translateY(-50%);
 }
 
 #image {
@@ -53,4 +80,16 @@ body {
   to {
     width: 100%;
   }
+}
+body {
+  font-size: 20px;
+  color: #ebebeb;
+  margin: 0 !important;
+  font-family: "Quicksand", sans-serif;
+  background-color: #111113;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
 }

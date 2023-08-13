@@ -2,78 +2,36 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        <title>Gesture Drawing</title>
+        <title>Home - Gesture Drawing</title>
 
-        <link rel="stylesheet" href="../public/css/stylesheet/main.css">
-        
+        <link rel="stylesheet" href="/public/css/stylesheet/main.css">
+
         <script src="/public/jquery.js"></script>
     </head>
     <body>
-        <div id="content">
-            <img alt="Image not Found" id="image">
-            <div id="menu">
-                <div class="button" id="pause" onclick="PlayPause()">Pause</div>
-                <div id="progressbar">
-                    <div id="bar"></div>
-                </div>
-                <div class="button" onclick="Skip()">Skip</div>
-            </div>
-        </div>
+        <div id="content"></div>
     </body>
 </html>
 
 <script>
-    let time = [0, 120]
-    let pause = false
+    window.onload = init()
+    
+    function init(){
+        const boards = {{{ boards }}}
+        const parent = $("#content")
 
-    const image_set = {{{ image_set }}}
-    const board_list = {{{ board_list }}}
+        for(let i = 0; i < boards.length; i++){
+            const board_name = boards[i][0].toUpperCase().replace('_', ' ');
+            const board_url = boards[i][0].replace(' ', '%20')
+            const image = boards[i][1]
 
-    function roll_image(){
-        const image = image_set[Math.floor(Math.random() * image_set.length)]
-        $("#image").attr('src', `/public/library/${image[0]}/${image[1]}`)
-        timer()
-    }
-
-    async function timer(){
-        const div = $("#progressbar > #bar")
-        div.css("animation", `animation ${time[1]}s infinite`)
-        while(true){
-            if(time[0] >= time[1]) break
-            if(pause == false){
-                time[0] += 1
-                div.css("animation-play-state", "running")
-            }else{
-                div.css("animation-play-state", "paused")
-            }
-
-            await wait()
-        }
-        Skip()
-    }
-
-    function wait(){
-        return new Promise(resolve => setTimeout(resolve, 1000))
-    }
-
-    function PlayPause(){
-        const div = $("#pause")
-        if(pause == true){
-            pause = false
-            div.text("Pause")
-        }
-        else{
-            pause = true
-            div.text("Play")
+            const div = `<a href="practice/?board=${board_url}" class="block" style="background-image: url(/public/library/${board_url}/${image});">
+                            <div class="name">${board_name}</div>
+                        </a>`;
+            parent.append(div);
         }
     }
-    function Skip(){
-        location.reload()
-    }
-
-    window.onload = roll_image()
 
 </script>

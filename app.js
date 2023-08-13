@@ -9,59 +9,48 @@ const app = express()
 app.set('view engine', 'hbs')
 app.use('/public', express.static('public'))
 
-const load_boards = () => {
+const list_boards = () =>{
     let list = []
 
-    boards = fs.readdirSync('./public/library/')
-    for(let i = 0; i < boards.length; i++){
-        list.push(boards[i])
+    const boards = fs.readdirSync('./public/library/')
+    for (let i = 0; i < boards.length; i++){
+        const board = boards[i]
+        list.push([board, load_image(board)])
     }
-
+    
     return list
 }
-const load_board = (data) => {
+const load_image = (board) =>{
+    const image = fs.readdirSync(`./public/library/${board}/`)[1]
+    return image.replace(' ', '%20')
+}
+
+const load_images = (board) => {
     let list = []
-    if(typeof(data) == "string"){  
-        images = fs.readdirSync(`./public/library/${data}/`)
-        for(let i = 0; i < images.length; i++){
-            list.push([data, images[i]])
-        }
-    }
-    else{
-        for(let i = 0; i < data.length; i++){
-            images = fs.readdirSync(`./public/library/${data[i]}/`)
-            for(let j = 0; j < images.length; j++){
-                list.push([data[i], images[j]])
-            }
-        }
+
+    const images = fs.readdirSync(`./public/library/${board}/`)
+    for(let i = 0; i < images.length; i++){
+        list.push(images[i])
     }
 
     return list
 }
 
 app.get('/', function(req, res){
-    const board_list = load_boards()
-    
-    // Query
-    const boardID = req.query.boardID
-    const boardName = req.query.board
+    const boards = JSON.stringify(list_boards())
 
-    if(boardName == undefined){    
-        board = board_list[boardID]
-        if(board == undefined) board = board_list
-    }
-    else{
-        board = boardName.replace(' ', '')
-        if(board.includes(',')){
-            board = board.split(',')
-        }
-    }
-    console.log(`Current board: ${board}`)
-
-    const image_set = load_board(board)
     res.render('index', {
-        board_list: JSON.stringify(board_list),
-        image_set: JSON.stringify(image_set)
+        boards: boards
+    })
+})
+
+app.get('/practice', function(req, res){
+    const board = req.query.board
+    const images = load_images(board)
+
+    res.render('draw', {
+        images: JSON.stringify(images),
+        board: board
     })
 })
 

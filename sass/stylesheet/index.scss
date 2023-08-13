@@ -1,0 +1,35 @@
+$col_b: 3;
+
+#content{
+    width: 100%;
+    margin: 0 auto;
+    overflow: hidden;
+    max-width: 1600px;
+    min-height: 100vh;
+    padding-bottom: 10px;
+    background-color: $cm1;
+}
+
+.block{
+    float: left;
+    display: block;    
+    aspect-ratio: 2;
+    margin-top: 10px;
+    margin-left: 10px;
+    position: relative;
+    border-radius: 10px;
+    background-size: 120%;
+    background-position: center;
+    width: calc(100% / $col_b - (10px + (10px / $col_b)));
+}
+.name{
+    top: 80%;
+    width: 100%;
+    font-size: 32px;
+    line-height: 40px;
+    position: absolute;
+    text-align: center;
+    background-color: $ct0;
+    font-family: $font_small;
+    transform: translateY(-50%);
+}
