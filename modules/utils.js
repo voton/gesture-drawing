@@ -12,7 +12,7 @@ const random_number = (len) => {
     return Math.floor(Math.random() * len)
 }
 const random_range = (max) => {
-    return Math.floor(Math.random() * max) + 1
+    return Math.floor(Math.random() * max)
 }
 
 /* Data */

@@ -27,7 +27,7 @@
             const board_url = boards[i][0].replace(' ', '%20')
             const image = boards[i][1]
 
-            const div = `<a href="practice/?board=${board_url}" class="block" style="background-image: url(/public/library/${board_url}/${image});">
+            const div = `<a href="draw/?board=${board_url}" class="block" style="background-image: url(/${image});">
                             <div class="name">${board_name}</div>
                         </a>`;
             parent.append(div);

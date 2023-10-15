@@ -26,12 +26,10 @@
     let time = [0, 120]
     let pause = false
 
-    const images = {{{ images }}}
-    const board = "{{{ board }}}"
-
     function roll_image(){
-        const image = images[Math.floor(Math.random() * images.length)]
-        $("#image").attr('src', `/public/library/${board}/${image}`)
+        const image = {{{ images }}}
+        console.log(image)
+        $("#image").attr('src', `/${image}`)
         timer()
     }
 
