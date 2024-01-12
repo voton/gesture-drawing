@@ -1,43 +1,17 @@
 const express = require('express')
-const {glob} = require('glob')
-const fs = require('fs')
 
-require('dotenv').config()
-
+const functions = require('./modules/functions')
 const utils = require('./modules/utils')
 
-const port = process.env.PORT
 const app = express()
+const port = 3000
 
 app.set('view engine', 'hbs')
 app.use('/public', express.static('public'))
 
-async function load_libraries(){
-    let libraries = []
-    
-    const scan = fs.readdirSync('./public/library/')
-    for(let i = 0; i < scan.length; i++){
-        const image = await fetch_images(scan[i])
-        libraries.push([scan[i], image[0]])
-    }
-    
-    return libraries
-}
-async function fetch_images(library){
-    let data = []
-
-    const scan = await glob(`./public/library/${library}/*.*`)
-    for(let i = 0; i < scan.length; i++){
-        const image = scan[i].replaceAll('\\', '/')
-                             .replaceAll(' ', '%20')
-        data.push(image)
-    }
-
-    return data
-}
 
 app.get('/', async function(req, res){
-    const boards = await load_libraries()
+    const boards = await functions.load_libraries()
 
     res.render('index', {
         boards: JSON.stringify(boards)
@@ -46,12 +20,42 @@ app.get('/', async function(req, res){
 
 app.get('/draw', async function(req, res){
     const board = req.query.board
+    const timer = req.query.timer || 1000
 
-    const images = await fetch_images(board)
-    const image = images[utils.random_range(images.length)]
+    if(board == 'All') images = await functions.fetch_all_images()
+    else images = await functions.fetch_images(board)
+
+    image = images[utils.random_range(images.length)]
 
     res.render('draw', {
-        images: JSON.stringify(image)
+        images: JSON.stringify(image),
+        time: timer
+    })
+})
+
+app.get('/gallery', async function(req, res){
+    const columns = req.query.col || 5
+
+
+    images = await functions.fetch_all_images()
+    images = utils.shuffle(images).splice(0, 100)
+
+    res.render('gallery', {
+        images: JSON.stringify(images),
+        columns: columns
+    })
+})
+
+app.get('/quick_shot', async function(req, res){
+    const images_count = req.query.count || 3
+
+
+    images = await functions.fetch_all_images()
+    images = utils.shuffle(images).splice(0, images_count)
+
+    res.render('quick_shot', {
+        images: JSON.stringify(images),
+        columns: images_count
     })
 })
 

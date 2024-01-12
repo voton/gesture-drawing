@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>Quick Shot - Gesture Drawing</title>
+
+    <link rel="stylesheet" href="/public/css/stylesheet/main.css">
+
+    <script src="/public/jquery.js"></script>
+</head>
+    <body>
+        <div id="content"></div>
+    </body>
+</html>
+
+<script>
+    window.onload = init()
+    
+    function init(){
+        const data = {{{ images }}}
+        let column = [0, {{{ columns }}}]
+
+        for(let x = 0; x < column[1]; x++){
+            $("#content").append(`<div class="column" id="${x}" style="width: calc(100% / ${column[1]} - (10px + (10px / ${column[1]})));"></div>`)
+        }
+
+        for(let x = 0; x < data.length; x++){
+            $(`#${column[0]}`).append(`<div class='img'>
+                <img src='${data[x]}'>
+            </div>`)
+
+            column[0] += 1;
+            if(column[0] >= column[1]) column[0] = 0
+        }
+    }
+</script>

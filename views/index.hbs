@@ -19,19 +19,24 @@
     window.onload = init()
     
     function init(){
+        const timer = 240
         const boards = {{{ boards }}}
         const parent = $("#content")
+
+        parent.append(`<a href="quick_shot" class="block" style="background-image: url(public/library/NSFW%202/28285938.webp);"><div class="name">Quick Shot</div></a>`);
+        parent.append(`<a href="gallery" class="block" style="background-image: url(public/library/Ideas%20-%20SFW/916412224162424195.png);"><div class="name">Gallery</div></a>`);
 
         for(let i = 0; i < boards.length; i++){
             const board_name = boards[i][0].toUpperCase().replace('_', ' ');
             const board_url = boards[i][0].replace(' ', '%20')
             const image = boards[i][1]
 
-            const div = `<a href="draw/?board=${board_url}" class="block" style="background-image: url(/${image});">
+            const div = `<a href="draw/?board=${board_url}&timer=${timer}" class="block" style="background-image: url(/${image});">
                             <div class="name">${board_name}</div>
                         </a>`;
             parent.append(div);
         }
+        
     }
 
 </script>

@@ -1,0 +1,18 @@
+.column > .img{
+    width: 100%;
+    position: relative;
+    height: calc(100vh - 20px);
+    margin-top: 10px;
+    border-radius: 10px;
+    background-color: inherit;
+    background-position: center;
+    background-size: 100% auto;
+    background-repeat: no-repeat;
+}
+.column > .img > img{
+    border-radius: 10px;
+    width: 100%;
+    top: 50%;
+    position: absolute;
+    transform: translateY(-50%);
+}

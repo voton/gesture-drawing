@@ -18,6 +18,8 @@ $font_small: 'Sofia Sans Extra Condensed', sans-serif;
 // Local Import
 @import "stylesheet/index.scss";
 @import "stylesheet/draw.scss";
+@import "stylesheet/gallery.scss";
+@import "stylesheet/quick_shot.scss";
 
 body{
     font-size: 20px;
